@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coleta de Dados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Coleta de Dados das Escolas</h1>
+    <p>Cole os códigos das escolas, separados por vírgula:</p>
+    <textarea id="codigos" placeholder="Insira os códigos aqui..."></textarea>
+    <button onclick="processar()">Gerar Dados</button>
+    
+    <table id="resultado" style="display: none;">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Processo</th>
+                <th>Ação</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-corpo">
+            <!-- Dados gerados serão inseridos aqui -->
+        </tbody>
+    </table>
+
+    <script>
+        function processar() {
+            // Pega os códigos colados na textarea
+            const codigos = document.getElementById('codigos').value;
+            const listaCodigos = codigos.split(',').map(c => c.trim()).filter(c => c !== '');
+
+            if (listaCodigos.length === 0) {
+                alert('Por favor, insira pelo menos um código.');
+                return;
+            }
+
+            // Limpa a tabela anterior, caso exista
+            const corpoTabela = document.getElementById('tabela-corpo');
+            corpoTabela.innerHTML = '';
+
+            // Aqui você simula a lógica. No seu script real, você chamaria o Google Apps Script para fazer o cruzamento. Aqui, vou simular um processo.
+            listaCodigos.forEach((codigo, index) => {
+                // Simulando: cada código recebe um processo igual, ação igual, e valor simulado
+                const processo = 'P001';
+                const acao = 'Ação Única';
+                const valor = (100 + index * 10).toFixed(2); // Só para exemplo
+
+                // Cria uma nova linha na tabela
+                const linha = document.createElement('tr');
+                linha.innerHTML = `
+                    <td>${codigo}</td>
+                    <td>${processo}</td>
+                    <td>${acao}</td>
+                    <td>${valor}</td>
+                `;
+                corpoTabela.appendChild(linha);
+            });
+
+            // Mostra a tabela após preenchimento
+            document.getElementById('resultado').style.display = 'table';
+        }
+    </script>
+</body>
+</html>
